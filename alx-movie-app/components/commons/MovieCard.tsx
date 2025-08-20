@@ -10,7 +10,7 @@ const MovieCard: React.FC<MovieProps> = ({ title, posterImage, releaseYear }) =>
       </div>
       <div className="flex justify-between py-4">
         <p className="text-xl font-bold">{title}</p>
-        <p className="text-xl text-[#E2D609]">{releaseYear}</p>
+        <p className="text-xl text-[#E2D609]">{String(releaseYear)}</p>
       </div>
     </div>
   )
