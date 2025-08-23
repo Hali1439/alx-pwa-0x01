@@ -1,40 +1,22 @@
 import { ReactNode } from "react";
 
 export interface ComponentProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 export interface ButtonProps {
-  title: string
-  action?: () => void
+  title: string;
+  action?: () => void;
 }
 
 export interface MovieProps {
-  id?: string
-  posterImage: string
-  releaseYear: string
-  title: string
+  id?: string;
+  posterImage: string;
+  releaseYear: string;
+  title: string;
 }
 
-interface PrimaryImage {
-  url: string
-}
-
-interface TitleText {
-  text: string
-}
-
-interface ReleaseYear {
-  year: string
-}
-
-export interface MoviesProps {
-  primaryImage: PrimaryImage
-  titleText: TitleText
-  releaseYear: ReleaseYear
-}
-
-
+// ✅ Final TMDB Movie interface
 export interface MoviesProps {
   id: number;
   title: string;

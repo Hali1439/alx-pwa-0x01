@@ -13,7 +13,10 @@ export default async function handler(request: NextApiRequest, response: NextApi
       apiUrl.searchParams.append("language", "en-US");
       apiUrl.searchParams.append("sort_by", "release_date.desc");
       apiUrl.searchParams.append("page", page || "1");
-      apiUrl.searchParams.append("primary_release_year", (year || date.getFullYear()).toString());
+      apiUrl.searchParams.append(
+        "primary_release_year",
+        (year || date.getFullYear()).toString()
+      );
 
       if (genre) {
         apiUrl.searchParams.append("with_genres", genre);
@@ -26,7 +29,18 @@ export default async function handler(request: NextApiRequest, response: NextApi
       }
 
       const moviesResponse = await resp.json();
-      const movies: MoviesProps[] = moviesResponse.results;
+
+      // ✅ Normalize to MoviesProps
+      const movies: MoviesProps[] = moviesResponse.results.map((movie: any) => ({
+        id: movie.id,
+        title: movie.title,
+        overview: movie.overview,
+        poster_path: movie.poster_path
+          ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+          : null,
+        release_date: movie.release_date,
+        vote_average: movie.vote_average,
+      }));
 
       return response.status(200).json({ movies });
     } catch (error: any) {
