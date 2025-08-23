@@ -1,7 +1,23 @@
 import { MoviesProps } from "@/interfaces";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default async function handler(request: NextApiRequest, response: NextApiResponse) {
+interface TMDBMovie {
+  id: number;
+  title: string;
+  overview: string;
+  poster_path: string | null;
+  release_date: string;
+  vote_average: number;
+}
+
+interface TMDBResponse {
+  results: TMDBMovie[];
+}
+
+export default async function handler(
+  request: NextApiRequest,
+  response: NextApiResponse
+) {
   if (request.method === "POST") {
     try {
       const { year, page, genre } = request.body;
@@ -28,10 +44,10 @@ export default async function handler(request: NextApiRequest, response: NextApi
         throw new Error(`Failed to fetch movies: ${resp.statusText}`);
       }
 
-      const moviesResponse = await resp.json();
+      const moviesResponse: TMDBResponse = await resp.json();
 
-      // ✅ Normalize to MoviesProps
-      const movies: MoviesProps[] = moviesResponse.results.map((movie: any) => ({
+      // ✅ No "any" here
+      const movies: MoviesProps[] = moviesResponse.results.map((movie) => ({
         id: movie.id,
         title: movie.title,
         overview: movie.overview,
@@ -43,8 +59,8 @@ export default async function handler(request: NextApiRequest, response: NextApi
       }));
 
       return response.status(200).json({ movies });
-    } catch (error: any) {
-      console.error("Error fetching movies:", error.message);
+    } catch (error) {
+      console.error("Error fetching movies:", error);
       return response.status(500).json({ error: "Failed to fetch movies" });
     }
   } else {
