@@ -36,10 +36,6 @@ This strategy is used by **Netflix, Disney+, and Spotify Lite** to deliver app-l
 
 ---
 
-## 🚀 Implementation Steps
+## 🚀 My PWA link
+https://alx-movie-app-halimamuk1307-5640-halimamuk1307-5640s-projects.vercel.app/
 
-### 0. Install Necessary Dependencies
-- Clone repo:
-```bash
-git clone https://github.com/YOUR_USER_NAME/alx-project-0x14.git alx-pwa-0x01
-cd alx-movie-app
